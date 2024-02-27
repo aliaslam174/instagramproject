@@ -5,7 +5,8 @@ import { useNavigate } from "react-router-dom"
 const Authguard = ({ children }) => {
     const userInfo = useSelector((state) => state.userAuth);
     let navigate = useNavigate();
-    const accessToken = localStorage.getItem("accessToken");
+    const accessToken = localStorage.getItem("accessToken")
+    
     useEffect(() => {
         if (accessToken == null || accessToken == undefined) {
             navigate("/login")

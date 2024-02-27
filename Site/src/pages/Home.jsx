@@ -11,6 +11,7 @@ function Home() {
   const [posts, setPosts] = useState([]);
   const [updatePosts, setUpdatePosts] = useState(false);
   const loadingRef = useRef(null);
+  
   useEffect(() => {
     loadingRef.current.continuousStart();
     httpClient.get('/post/all').then((response) => {

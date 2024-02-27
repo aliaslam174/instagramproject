@@ -31,7 +31,7 @@ function App() {
 
 <Routes>
         <Route path='/' element={<Authguard> <Home/> </Authguard>}/>
-        <Route path='/layout' element={<Navhom/>}/>
+       
         <Route path='/login' element={<Login/>}/>
         <Route path='/signup' element={<Signup/>}/>
         <Route path='/logout' element={<Logout/>}/>
