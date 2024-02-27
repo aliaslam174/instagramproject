@@ -4,39 +4,8 @@ import { useSelector } from "react-redux"
 import insta from '../../../instagram-wordmark.svg'
 
 function Navbar() {
-
     const userInfo = useSelector((state) => state.userAuth);
-
-  
-       
-          const logout=()=>{
-            // Swal.fire({
-            //     title: "Are you sure to logout?",
-            //     // text: "You won't be able to revert this!",
-            //     icon: "warning",
-            //     showCancelButton: true,
-            //     confirmButtonColor: "#3085d6",
-            //     cancelButtonColor: "#d33",
-            //     confirmButtonText: "Yes!"
-            //   }).then((result) => {
-                  
-            //     if (result.isConfirmed) {
-            //       Swal.fire({
-            //         title: "Logout!",
-            //         text: "Your file has been Logout.",
-            //         icon: "success"
-            //       });
-            //       console.log('dfgg')
-                 
-            //     }
-               
-            //   });
-            localStorage.removeItem('accessToken')
-           
-            userInfo.islogin(false)
-      
-           
-    }
+   
     return (
         <>
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -71,7 +40,7 @@ function Navbar() {
                                         Login
                                     </Link>
                                 </li> : <li className="nav-item">
-                                    <Link className="nav-link"  onClick={logout}>
+                                    <Link className="nav-link"   to='/logout'>
                                         Logout
                                     </Link>
                                 </li>

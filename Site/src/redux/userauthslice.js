@@ -45,7 +45,13 @@ export const userauthslice = createSlice({
     islogin: false
   },
   reducers: {
-    loginStart: (state) => { }
+    setLoggedIn : (state) => {
+      state.islogin = true;
+     },
+     setLoggedOut : (state) => {
+      state.islogin = false;
+     }
+
 
   },
   extraReducers: (builder) => {
@@ -66,7 +72,7 @@ export const userauthslice = createSlice({
     builder.addCase(ascnclogin.rejected, (state, action) => {
       state.loading = false;
       state.loginError = action.payload.message;
-      
+
       console.log(action.payload)
     })
 
@@ -98,6 +104,6 @@ export const userauthslice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { loginStart } = userauthslice.actions
+export const { setLoggedIn, setLoggedOut } = userauthslice.actions
 
 export default userauthslice.reducer
