@@ -19,7 +19,7 @@ app.use("/post", postroutes)
 
 
 app.get('/', (req, res) => {
-  res.send('Hello, Express with Mongoose!');
+  res.send('Hello, instaagrame project is working');
 });
 
 
