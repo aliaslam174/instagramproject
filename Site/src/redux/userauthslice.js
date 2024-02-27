@@ -65,7 +65,7 @@ export const userauthslice = createSlice({
     })
     builder.addCase(ascnclogin.rejected, (state, action) => {
       state.loading = false;
-      state.loginError = action.payload.message;
+      state.loginError = true;
       
       console.log(action.payload)
     })
