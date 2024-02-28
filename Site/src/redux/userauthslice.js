@@ -1,11 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
+import httpClient from '../../httpClient'
 
 // login 
 export const ascnclogin = createAsyncThunk('loginslice/ascnclogin', async (credentials, { rejectWithValue }) => {
 
   try {
-    const res = await axios.post(`${import.meta.env.VITE_API_SERVER_URL}/user/login`, credentials)
+    const res = await httpClient.post(`${import.meta.env.VITE_API_SERVER_URL}/user/login`, credentials)
 
     return res.data
   } catch (error) {
@@ -19,7 +20,7 @@ export const ascncsignup = createAsyncThunk('loginslice/ascncsignup', async (cre
   console.log(credentials)
 
   try {
-    const res = await axios.post(`${import.meta.env.VITE_API_SERVER_URL}/user/signup`, credentials)
+    const res = await httpClient.post(`${import.meta.env.VITE_API_SERVER_URL}/user/signup`, credentials)
 
     return res.data
   } catch (error) {

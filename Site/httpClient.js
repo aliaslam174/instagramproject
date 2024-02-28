@@ -4,7 +4,7 @@ import axios from "axios";
 const httpClient = axios.create({
     baseURL: import.meta.env.VITE_API_SERVER_URL,
     timeout: 5000,
-    headers: {'Authorization': 'Bearer '+localStorage.getItem("accessToken")}
+    headers: {'Authorization': 'Bearer ' +localStorage.getItem("accessToken")}
   });
 
 

@@ -9,7 +9,7 @@ const upload = multer({ storage: storage });
 
 router.post('/create',[checkauth,upload.single('image')],postCtrl.creatPost)
 router.get('/my',checkauth,postCtrl.myPosts)
-router.get('/all',postCtrl.allPosts)
+router.get('/all',checkauth,postCtrl.allPosts)
 
 
 module.exports=router

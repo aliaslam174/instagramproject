@@ -27,7 +27,7 @@ function Login() {
   useEffect(() => {
     if (userInfo.islogin === true) {
       navigator("/");
-    }else{
+    } else{
       navigator("/login");
     }
   }, [userInfo.islogin]);
