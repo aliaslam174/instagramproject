@@ -10,7 +10,7 @@ import Navhom from './pages/Navhom';
 import Nav from './component/Nav';
 import Authguard from './component/Authguard';
 import { useDispatch } from 'react-redux';
-import {setLoggedIn} from "./redux/userauthslice"
+import {setLoggedIn, updateuserinfo} from "./redux/userauthslice"
 
 function App() {
   
@@ -18,7 +18,10 @@ function App() {
 
   useEffect(() => {
      const accessToken = localStorage.getItem("accessToken");
+     const user = JSON.parse(localStorage.getItem("userinfo"));
      if(accessToken !== null) {
+        
+        dispatch(updateuserinfo(user))
         dispatch(setLoggedIn())
      }
   }, [])
@@ -33,6 +36,7 @@ function App() {
         <Route path='/' element={<Authguard> <Home/> </Authguard>}/>
        
         <Route path='/login' element={<Login/>}/>
+        {/* <Route path='/profile/update' element={}/> */}
         <Route path='/signup' element={<Signup/>}/>
         <Route path='/logout' element={<Logout/>}/>
       </Routes>

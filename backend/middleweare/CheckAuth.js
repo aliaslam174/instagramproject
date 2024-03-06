@@ -13,7 +13,7 @@ try {
     }
     // if token available then verify its authentication and extract userId from it
     const decoded = jwt.verify(token,process.env.JWT_SECRET_KEY);
-console.log(decoded,"dsfdf")
+
      // todo check if user id is availab in db
 
      req.userId = decoded._id;

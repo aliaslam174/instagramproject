@@ -35,11 +35,18 @@ function Navbar() {
                                 </Link>
                             </li>
                             {
-                                (userInfo.islogin !== true) ? <li className="nav-item">
+                                (userInfo.islogin !== true) ? <>
+                                <li className="nav-item">
                                     <Link className="nav-link" to="/login">
                                         Login
                                     </Link>
-                                </li> : <li className="nav-item">
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/signup">
+                                        signup
+                                    </Link>
+                                </li>
+                                </> : <li className="nav-item">
                                     <Link className="nav-link"   to='/logout'>
                                         Logout
                                     </Link>
@@ -50,11 +57,11 @@ function Navbar() {
                                     Login
                                 </Link>
                             </li> */}
-                            <li className="nav-item">
+                            {/* <li className="nav-item">
                                 <Link className="nav-link" to="/signup">
                                     Signup
                                 </Link>
-                            </li>
+                            </li> */}
                         </ul>
                         <form className="d-flex" role="search">
                             <input

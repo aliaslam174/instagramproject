@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux"
 
-import {setLoggedOut } from "../redux/userauthslice"
+import {resetState, setLoggedOut } from "../redux/userauthslice"
 
 function Logout() {
     const userInfo = useSelector((state) => state.userAuth);
@@ -11,7 +11,9 @@ function Logout() {
 
     useEffect(() => {
         localStorage.removeItem('accessToken')
-        dispatch(setLoggedOut())
+        localStorage.removeItem('userinfo')
+        dispatch(setLoggedOut()) 
+        // dispatch(resetState())
         navigate("/");
     }, [])
    

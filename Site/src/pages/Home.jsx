@@ -14,17 +14,23 @@ function Home() {
   
   useEffect(() => {
     loadingRef.current.continuousStart();
-    httpClient.get('/post/all').then((response) => {
-      if (response.data.status == "success") {
-        setPosts(response.data.posts);
-      }
+   
+    setTimeout(function() {
+      httpClient.get('/post/all').then((response) => {
+        if (response.data.status == "success") {
+          setPosts(response.data.posts);
+        }
+  
+      }).catch(error => console.log(error.message))
+        .finally(() => { 
+          setUpdatePosts(false)
+          loadingRef.current.complete();
+        })
+    }, 500);
 
-    }).catch(error => console.log(error.message))
-      .finally(() => { 
-        setUpdatePosts(false)
-        loadingRef.current.complete();
-      })
+
   }, [updatePosts]);
+ 
   return (
    <>
   <LoadingBar ref={loadingRef}/>
@@ -35,7 +41,7 @@ function Home() {
       <Col lg={16} xs={24}>
        
         {
-          posts.map(post => <PostCard key={post._id} post={post} />)
+          posts.map(post => <PostCard key={post._id} post={post} setUpdatePosts={setUpdatePosts} />)
         }
       </Col>
     </Row>

@@ -7,19 +7,19 @@ import LoaderBtn from '../loaderbtn/LoaderBtn';
 import httpClient from '../../../httpClient';
 const loginschema = yup.object({
     content: yup.string().required(),
-    
-  }).required();
 
-const PostModal = ({isModalOpen, handleOk, handleCancel,setUpdatePosts}) => {
+}).required();
+
+const PostModal = ({ isModalOpen, handleOk, handleCancel, setUpdatePosts }) => {
     // Modal Code
     const [isLoading, setIsLoading] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(loginschema)
-      });
+    });
 
-      const onSubmit = (data) => {
+    const onSubmit = (data) => {
         console.log(data)
-        
+
         setIsLoading(true)
         httpClient.post("/post/create", {
             content: data.content,
@@ -33,13 +33,13 @@ const PostModal = ({isModalOpen, handleOk, handleCancel,setUpdatePosts}) => {
             handleCancel();
             setUpdatePosts(true)
         }).catch(err => console.log(err.message))
-        .finally(() => setIsLoading(false));
+            .finally(() => setIsLoading(false));
     }
     return (
 
-        <Modal title="Basic Modal"  open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={null}>
-            <form  onSubmit={handleSubmit(onSubmit)}>
-                <input type='text' className='form-control mb-3' {...register('content')}/>
+        <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={null}>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <input type='text' className='form-control mb-3' {...register('content')} />
                 {
                     (errors.content) ? <p className='alert alert-danger p-1 fs-6'>{errors.content?.message}</p> : null
                 }

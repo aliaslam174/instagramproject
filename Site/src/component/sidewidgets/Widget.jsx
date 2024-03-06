@@ -12,10 +12,21 @@ import { useSelector } from 'react-redux'
 import { Button } from 'antd';
 import httpClient from '../../../httpClient';
 import LoadingBar from 'react-top-loading-bar'
+import ProfileModal from '../modal/ProfileModal';
 
 const Widget = ({ image, name, bio, setPosts, setUpdatePosts, posts }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalOpenProfile, setIsModalOpenProfile] = useState(false);
     const loadingRef = useRef(null);
+    const showModalProfile = () => {
+        setIsModalOpenProfile(true);
+    };
+    const handleOkprofile = (data) => {
+        console.log(data)
+    };
+    const handleCancelprofile = () => {
+        setIsModalOpenProfile(false);
+    };
     const showModal = () => {
         setIsModalOpen(true);
     };
@@ -25,12 +36,14 @@ const Widget = ({ image, name, bio, setPosts, setUpdatePosts, posts }) => {
     const handleCancel = () => {
         setIsModalOpen(false);
     };
+
+
     const handleMyPosts = () => {
 
         loadingRef.current.continuousStart();
         // alert(localStorage.getItem("accessToken"));
         httpClient.get("/post/my").then((res) => {
-            -                  console.log(res)
+                            
             if (res.data.status == 'success') {
                 setPosts(res.data.posts);
             }
@@ -43,16 +56,23 @@ const Widget = ({ image, name, bio, setPosts, setUpdatePosts, posts }) => {
 
 
     const states = useSelector((state) => state.userAuth)
-    console.log(states)
+    
     return (
 
         <div className='mt-4 pt-3 p-4'>
             <LoadingBar ref={loadingRef} />
             <PostModal isModalOpen={isModalOpen} handleOk={handleOk} handleCancel={handleCancel} setUpdatePosts={setUpdatePosts} />
+            <ProfileModal isModalOpen={isModalOpenProfile} handleOk={handleOkprofile} handleCancel={handleCancelprofile} setUpdatePosts={setUpdatePosts} />
             <div className='mx-auto text-center'>
-                <img src={image} className='d-inline sidewidget__photo object-fit-cover' />
+                {/* {
+                    (states.userInfo == null) ? <img src={image} className='d-inline sidewidget__photo object-fit-cover' /> : <img src={states.userInfo} className='d-inline sidewidget__photo object-fit-cover' />
+                } */}
+                 {
+                    (states.userInfo == null) ? <img src="https://picsum.photos/200" className='d-inline sidewidget__photo object-fit-cover' /> : <img src={states.userInfo} className='d-inline sidewidget__photo object-fit-cover' />
+                }
+
             </div>
-            <h3 className='fs-4 text-center mt-4'>{states.name}</h3>
+            <h3 className='fs-4 text-center mt-4'>{states.username}</h3>
             <p className='fs-6 text-center w-75 mx-auto'>{bio}</p>
 
             <div className='mt-4 d-flex justify-content-around'>
@@ -79,7 +99,7 @@ const Widget = ({ image, name, bio, setPosts, setUpdatePosts, posts }) => {
                     <BsFillSignpostSplitFill />
                     <span>My Posts</span>
                 </Link>
-                <Link to='/' className="btn btn-outline-dark fs-5 px-3 py-2 align-items-center gap-2 text-start d-flex mb-2">
+                <Link to='/' onClick={showModalProfile} className="btn btn-outline-dark fs-5 px-3 py-2 align-items-center gap-2 text-start d-flex mb-2">
                     <RiUserSettingsFill />
                     <span>Edit Profile</span>
                 </Link>

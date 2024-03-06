@@ -16,6 +16,7 @@ const loginschema = yup.object({
 function Login() {
   const dispacher = useDispatch()
   const userInfo = useSelector((state) => state.userAuth);
+  const accessToken = localStorage.getItem("accessToken")
   const navigator = useNavigate();
   const { register, handleSubmit, watch, formState: { errors } } = useForm({
     resolver: yupResolver(loginschema)
@@ -25,12 +26,10 @@ function Login() {
     dispacher(ascnclogin(data))
   };
   useEffect(() => {
-    if (userInfo.islogin === true) {
+    if (accessToken !== null) {
       navigator("/");
-    } else{
-      navigator("/login");
-    }
-  }, [userInfo.islogin]);
+    } 
+  }, [accessToken]);
   return (
     <>
       {/* <div className="container">

@@ -13,8 +13,9 @@ export const ascnclogin = createAsyncThunk('loginslice/ascnclogin', async (crede
     console.log(error.message)
     return rejectWithValue(error.response.data)
   }
-},
-)
+})
+
+
 // signup 
 export const ascncsignup = createAsyncThunk('loginslice/ascncsignup', async (credentials, { rejectWithValue }) => {
   console.log(credentials)
@@ -42,16 +43,30 @@ export const userauthslice = createSlice({
     loginError: null,
     SignupError: null,
     success: false,
-    name: "ALi Aslam",
-    islogin: false
+    username: null,
+    islogin: false,
+    // userInfo:null,
+    userInfo: {
+      photo: null
+    }
   },
   reducers: {
-    setLoggedIn : (state) => {
+    setLoggedIn: (state) => {
       state.islogin = true;
-     },
-     setLoggedOut : (state) => {
+    },
+    setLoggedOut: (state) => {
       state.islogin = false;
-     }
+      if (state.userInfo) {
+        state.userInfo= null;
+      }
+      state.userToken = null;
+    },
+    updateuserinfo: (state, action) => {
+      // console.log(action.payload,"1234")
+      state.userInfo = action.payload.photo;
+      state.username = action.payload.name;
+    },
+    
 
 
   },
@@ -62,11 +77,13 @@ export const userauthslice = createSlice({
     })
     builder.addCase(ascnclogin.fulfilled, (state, action) => {
       state.loading = false;
-      console.log(action.payload);
-      state.userToken = action.payload.token;
+      // console.log(action.payload);
       if (action.payload.status == "success") {
-        state.userToken = action.payload.token;
         localStorage.setItem("accessToken", action.payload.token)
+        localStorage.setItem("userinfo", JSON.stringify(action.payload.user))
+        state.userInfo = action.payload.user?.photo;
+        state.username = action.payload.user.name
+        state.userToken = action.payload.token;
         state.islogin = true;
       }
     })
@@ -85,12 +102,13 @@ export const userauthslice = createSlice({
       state.loading = true;
     })
     builder.addCase(ascncsignup.fulfilled, (state, action) => {
-      console.log(action.payload)
+      console.log(action.payload, "payload")
       state.loading = false;
-      console.log(action.payload);
+      // console.log(action.payload);
       state.userToken = action.payload.token;
       if (action.payload.status == "success") {
         state.userToken = action.payload.token;
+        state.name = action.payload.name
         state.islogin = true;
       }
     })
@@ -105,6 +123,6 @@ export const userauthslice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { setLoggedIn, setLoggedOut } = userauthslice.actions
+export const { setLoggedIn, setLoggedOut, updateuserinfo,resetState } = userauthslice.actions
 
 export default userauthslice.reducer
