@@ -48,59 +48,59 @@ const creatPost = async (req, res) => {
 
 
 
-// const myPosts = async (req, res) => {
-//     try {
+const myPosts = async (req, res) => {
+    try {
 
-//         // const posts = await postModel.find({authorId: req.userId}).populate({
-//         //     path: "authorId",
-//         //     //select: "name", // Only include 'name' field from User collection
-//         //     //match: { $exists: true }
-//         //   }).sort({createdAt: -1})
+        // const posts = await postModel.find({authorId: req.userId}).populate({
+        //     path: "authorId",
+        //     //select: "name", // Only include 'name' field from User collection
+        //     //match: { $exists: true }
+        //   }).sort({createdAt: -1})
 
-//         const posts = await postModel.find({ authorId: req.userId }).populate(["authorId", "comments"]).sort({ createdAt: -1 })
+        const posts = await postModel.find({ authorId: req.userId }).populate(["authorId", "comments"]).sort({ createdAt: -1 })
 
-//         // const filteredPosts = posts.filter(p => p.authorId != null);
+        // const filteredPosts = posts.filter(p => p.authorId != null);
 
      
-//         const userId = req.userId;
+        const userId = req.userId;
 
-//         const filteredPosts = [];
-//          await Promise.all(posts.map( async (post) => {
+        const filteredPosts = [];
+         await Promise.all(posts.map( async (post) => {
             
-//             if(post.authorId != null) {
+            if(post.authorId != null) {
 
-//                 const PostObjectId = new mongoose.Types.ObjectId(post._id).toString();
-//                 const userObjectId = new mongoose.Types.ObjectId(post.authorId._id).toString();
-
-
-//                 let findLike = await Like.findOne({ userId: userObjectId, postId: PostObjectId });
-//                 let totalLikesByPostId = await Like.countDocuments({postId: PostObjectId});
+                const PostObjectId = new mongoose.Types.ObjectId(post._id).toString();
+                const userObjectId = new mongoose.Types.ObjectId(post.authorId._id).toString();
 
 
-//                 let isLiked = false;
-//                 if(findLike) {
-//                     isLiked = true;
-//                 }
-//                 let newP = {
-//                     ...post.toObject(),
-//                     isLiked:  isLiked,
-//                     totalLikes: totalLikesByPostId
-//                 }
+                let findLike = await Like.findOne({ userId: userObjectId, postId: PostObjectId });
+                let totalLikesByPostId = await Like.countDocuments({postId: PostObjectId});
 
-//                 filteredPosts.push(newP);
-//                 //return post;
-//             }
-//         }))
 
-//         return res.json({
-//             status: 'success',
-//             posts: filteredPosts
-//         })
+                let isLiked = false;
+                if(findLike) {
+                    isLiked = true;
+                }
+                let newP = {
+                    ...post.toObject(),
+                    isLiked:  isLiked,
+                    totalLikes: totalLikesByPostId
+                }
 
-//     } catch (error) {
-//         console.log(error.message);
-//     }
-// }
+                filteredPosts.push(newP);
+                //return post;
+            }
+        }))
+
+        return res.json({
+            status: 'success',
+            posts: filteredPosts
+        })
+
+    } catch (error) {
+        console.log(error.message);
+    }
+}
 
 const allPosts = async (req, res) => {
     try {
@@ -236,4 +236,4 @@ const likes = async (req, res) => {
 
 
 
-module.exports = { creatPost, allPosts, likes }
+module.exports = { creatPost, allPosts, likes ,myPosts}

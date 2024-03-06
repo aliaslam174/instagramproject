@@ -8,10 +8,10 @@ const upload = multer({ storage: storage });
 
 
 router.post('/create',[checkauth,upload.single('image')],postCtrl.creatPost)
-// router.get('/my',checkauth,postCtrl.myPosts)
+router.get('/my',checkauth,postCtrl.myPosts)
 router.get('/all',checkauth,postCtrl.allPosts)
 router.post('/like',checkauth,postCtrl.likes)
-// router.get('/isLiked', checkauth,postCtrl.isLiked)
+
 
 
 module.exports=router
