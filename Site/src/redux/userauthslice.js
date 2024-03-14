@@ -80,7 +80,7 @@ export const userauthslice = createSlice({
       // console.log(action.payload);
       if (action.payload.status == "success") {
         localStorage.setItem("accessToken", action.payload.token)
-        localStorage.setItem("userinfo", JSON.stringify(action.payload.user))
+        localStorage.setItem("userinfo", action.payload.user)
         state.userInfo = action.payload.user?.photo;
         state.username = action.payload.user.name
         state.userToken = action.payload.token;
