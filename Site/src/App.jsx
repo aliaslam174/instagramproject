@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import {Route,Routes} from 'react-router-dom'
+import {Route,Routes, useNavigate} from 'react-router-dom'
 import './App.css'
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -12,8 +12,10 @@ import Authguard from './component/Authguard';
 import { useDispatch } from 'react-redux';
 import {setLoggedIn, updateuserinfo} from "./redux/userauthslice"
 
+
 function App() {
-  
+  let navigate = useNavigate();
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,6 +25,9 @@ function App() {
         
         dispatch(updateuserinfo(user))
         dispatch(setLoggedIn())
+     }else{
+      navigate("/login")
+
      }
   }, [])
   return (
