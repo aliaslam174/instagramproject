@@ -29,9 +29,6 @@ function Login() {
   useEffect(() => {
     if (accessToken !== null) {
       navigator("/");
-    }else{
-      navigator("/");
-
     }
   }, [accessToken]);
   return (
