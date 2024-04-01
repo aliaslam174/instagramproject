@@ -30,7 +30,7 @@ function Login() {
     if (accessToken !== null) {
       navigator("/");
     }else{
-      navigator("/login");
+      navigator("/");
 
     }
   }, [accessToken]);
