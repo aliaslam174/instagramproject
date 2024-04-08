@@ -77,10 +77,10 @@ export const userauthslice = createSlice({
     })
     builder.addCase(ascnclogin.fulfilled, (state, action) => {
       state.loading = false;
-      // console.log(action.payload);
+      console.log(action.payload.user);
       if (action.payload.status == "success") {
         localStorage.setItem("accessToken", action.payload.token)
-        localStorage.setItem("userinfo", action.payload.user)
+        localStorage.setItem("userinfo",JSON.stringify(action.payload.user))
         state.userInfo = action.payload.user?.photo;
         state.username = action.payload.user.name
         state.userToken = action.payload.token;
